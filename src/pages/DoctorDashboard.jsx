@@ -1,12 +1,14 @@
 import { useEffect, useState } from "react";
 import axios from "../api/axiosConfig";
 import socket from "../socket/Socket";
+import { useNavigate } from "react-router-dom";
 
 const DoctorDashboard = () => {
   const [doctor, setDoctor] = useState(null);
   const [sessions, setSessions] = useState([]);
   const [loading, setLoading] = useState(true);
   const [toggleLoading, setToggleLoading] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchDoctor();
@@ -50,7 +52,7 @@ const DoctorDashboard = () => {
   const handleLogout = async () => {
     try {
       await axios.post("/doctor/logout");
-      window.location.href = "/doctor-login";
+      navigate("/");
     } catch (err) {
       console.error("Logout failed");
     }
